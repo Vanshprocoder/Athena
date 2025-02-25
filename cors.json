@@ -1,0 +1,23 @@
+[
+  {
+    "origin": ["http://localhost:5173", "http://localhost:3000", "https://athena-colz.web.app", "https://athena-colz.firebaseapp.com"],
+    "method": ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"],
+    "maxAgeSeconds": 3600,
+    "responseHeader": [
+      "Content-Type",
+      "Content-Length",
+      "Content-Range",
+      "Content-Disposition",
+      "Access-Control-Allow-Origin",
+      "Access-Control-Allow-Methods",
+      "Access-Control-Allow-Headers",
+      "Access-Control-Expose-Headers",
+      "Access-Control-Allow-Credentials",
+      "Authorization",
+      "Origin",
+      "X-Requested-With",
+      "Accept",
+      "ETag"
+    ]
+  }
+] 

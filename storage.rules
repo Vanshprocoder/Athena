@@ -1,0 +1,23 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow anyone to read/view images
+    allow read: if true;
+
+    // Allow authenticated users to upload images
+    allow write: if true && 
+                  request.resource.size < 5 * 1024 * 1024 && // 5MB limit
+                  request.resource.contentType.matches('image/.*');
+
+    match /event-images/{eventId} {
+      // Allow anyone to read/view images
+      allow read: if true;
+
+      // Allow authenticated users to upload images to event-images folder
+      allow write: if true && 
+                    request.resource.size < 5 * 1024 * 1024 && // 5MB limit
+                    request.resource.contentType.matches('image/.*');
+    }
+  }
+}

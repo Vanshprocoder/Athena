@@ -1,3 +1,4 @@
+@import "tailwindcss";
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -20,6 +21,24 @@ a {
 }
 a:hover {
   color: #535bf2;
+}
+
+.timeline {
+  position: relative;
+}
+
+.timeline-item {
+  position: relative;
+  width: 200px; /* Adjust width as needed */
+  margin: 20px;
+}
+
+.timeline-item h3 {
+  font-weight: bold;
+}
+
+.timeline-item p {
+  margin: 5px 0;
 }
 
 body {
@@ -52,6 +71,34 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.border-l-2 {
+  border-left-width: 2px;
+}
+
+.border-gray-300 {
+  border-color: #d1d5db; /* Adjust as needed */
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 @media (prefers-color-scheme: light) {
