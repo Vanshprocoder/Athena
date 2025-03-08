@@ -6,7 +6,7 @@ const Nav = () => (
   <nav className="bg-white border-b border-gray-200 shadow-sm">
     <div className="container mx-auto flex justify-between items-center px-4">
       <div className="flex-shrink-0">
-        <img src="../src/assets/logo3.png" className="h-20" alt="Logo" />
+        <img src="/logo3.png" className="h-20" alt="Logo" />
       </div>
       
       <ul className="flex items-center gap-6">

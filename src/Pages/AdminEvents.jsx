@@ -455,24 +455,24 @@ const AdminEvents = () => {
                       </span>
                     </div>
                     <div className="flex gap-2 mt-3">
-                      <button
+                      <motion.button
                         onClick={() => handleEditEvent(event)}
-                        className="p-2 hover:bg-green-700 rounded-lg transition-colors"
+                        className="p-2 bg-white hover:bg-gray-200 rounded-lg transition-colors"
                       >
-                        <Pencil className="h-5 w-5 text-green-400" />
-                      </button>
-                      <button
+                        <Pencil className="h-5 w-5 text-green-600" />
+                      </motion.button>
+                      <motion.button
                         onClick={() => handleDeleteEvent(event.id)}
-                        className="p-2 hover:bg-green-700 rounded-lg transition-colors"
+                        className="p-2 bg-white hover:bg-gray-200 rounded-lg transition-colors"
                       >
-                        <Trash2 className="h-5 w-5 text-red-400" />
-                      </button>
-                      <button
+                        <Trash2 className="h-5 w-5 text-red-500" />
+                      </motion.button>
+                      <motion.button
                         onClick={() => handleViewRegistrations(event)}
-                        className="p-2 hover:bg-green-700 rounded-lg transition-colors"
+                        className="p-2 bg-white hover:bg-gray-200 rounded-lg transition-colors"
                       >
-                        <ClipboardList className="h-5 w-5 text-green-400" />
-                      </button>
+                        <ClipboardList className="h-5 w-5 text-green-600" />
+                      </motion.button>
                     </div>
                   </motion.div>
                 ))}
@@ -533,21 +533,21 @@ const AdminEvents = () => {
                             <motion.button
                               onClick={() => handleEditEvent(event)}
                               whileHover={{ scale: 1.1 }}
-                              className="p-2 hover:bg-green-50 rounded-xl transition-all duration-300"
+                              className="p-2 bg-white hover:bg-gray-200 rounded-xl transition-all duration-300"
                             >
                               <Pencil className="h-5 w-5 text-green-600" />
                             </motion.button>
                             <motion.button
                               onClick={() => handleDeleteEvent(event.id)}
                               whileHover={{ scale: 1.1 }}
-                              className="p-2 hover:bg-red-50 rounded-xl transition-all duration-300"
+                              className="p-2 bg-white hover:bg-gray-200 rounded-xl transition-all duration-300"
                             >
                               <Trash2 className="h-5 w-5 text-red-500" />
                             </motion.button>
                             <motion.button
                               onClick={() => handleViewRegistrations(event)}
                               whileHover={{ scale: 1.1 }}
-                              className="p-2 hover:bg-green-50 rounded-xl transition-all duration-300"
+                              className="p-2 bg-white hover:bg-gray-200 rounded-xl transition-all duration-300"
                             >
                               <ClipboardList className="h-5 w-5 text-green-600" />
                             </motion.button>

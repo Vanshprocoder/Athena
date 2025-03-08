@@ -64,16 +64,16 @@ const ScheduleItem = ({ time, activity, onUpdate, onDelete }) => {
               <p className="text-base text-gray-800">{activity}</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="!bg-white flex items-center gap-2">
             <button
               onClick={() => setIsEditing(true)}
-              className="p-2 text-gray-400 hover:text-emerald-600 rounded-lg transition-colors"
+              className="!bg-white p-2 text-emerald-400 hover:text-emerald-600 rounded-lg"
             >
               <Pencil size={16} />
             </button>
             <button
               onClick={onDelete}
-              className="p-2 text-gray-400 hover:text-red-600 rounded-lg transition-colors"
+              className="bg-white p-2 text-red-400 hover:text-red-600 rounded-lg"
             >
               <Trash2 size={16} />
             </button>

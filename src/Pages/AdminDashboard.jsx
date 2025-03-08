@@ -150,9 +150,9 @@ const DeadlineCard = ({ events, onSetDeadline }) => {
             {commonDeadline && (
               <button
                 onClick={() => setShowDatePicker(true)}
-                className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+                className="p-2 bg-white hover:bg-gray-200 rounded-full transition-colors"
               >
-                <Pencil className="h-4 w-4 text-gray-400 hover:text-purple-400" />
+                <Pencil className="h-5 w-5 text-gray-600" />
               </button>
             )}
           </div>
@@ -664,9 +664,9 @@ const AdminDashboard = () => {
                     </h3>
                     <button
                       onClick={() => setShowDeadlineModal(true)}
-                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                      className="p-2 bg-white hover:bg-gray-200 rounded-full transition-colors"
                     >
-                      <Pencil className="h-4 w-4 text-gray-400 hover:text-emerald-600" />
+                      <Pencil className="h-5 w-5 text-gray-600" />
                     </button>
                   </>
                 ) : (
@@ -787,9 +787,9 @@ const AdminDashboard = () => {
                   <td className="px-6 py-4 text-sm text-gray-600">
                     <button
                       onClick={() => handleViewRegistrations(event)}
-                      className="p-2 hover:bg-green-50 rounded-full transition-colors"
+                      className="p-2 bg-white hover:bg-gray-200 rounded-full transition-colors"
                     >
-                      <ClipboardList className="h-5 w-5 text-green-600" />
+                      <ClipboardList className="h-5 w-5 text-gray-600" />
                     </button>
                   </td>
                 </motion.tr>

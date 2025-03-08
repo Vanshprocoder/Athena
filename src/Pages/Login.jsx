@@ -126,7 +126,7 @@ const Login = () => {
           <div className="hidden md:block md:w-1/2 max-h-full bg-gradient-to-br from-green-50 to-emerald-50">
             <div className="h-full p-8">
               <img
-                src="../src/assets/image.png"
+                src="/image.png"
                 alt="Login Illustration"
                 className="w-full h-full object-cover rounded-lg shadow-lg ring-1 ring-green-500/20"
               />
@@ -134,7 +134,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+
     </div>
   );
 };

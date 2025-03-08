@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Facebook, Instagram } from 'lucide-react';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
-import logo from '../assets/logo3.png';
+import logo from '/logo3.png';
 
 const Footer = () => {
   const [events, setEvents] = useState([]);
@@ -25,7 +25,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between">
           {/* Logo and Contact Info */}
           <div className="mb-6 md:mb-0 text-left">
-            <img src="../src/assets/logo_bk1.png" alt="Logo" className="h-20" />
+            <img src="/logo_bk1.png" alt="Logo" className="h-20" />
             <p className="mt-2">0161 - 2888500</p>
             <p>Campus-1, Baddowal, Ferozepur Road, Ludhiana-142021, Punjab, India</p>
             <p>Campus-2, Near Baddowal Cantt, Ferozepur Road, Ludhiana-142021, Punjab, India</p>

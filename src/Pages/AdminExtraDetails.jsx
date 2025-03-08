@@ -9,6 +9,7 @@ import ScheduleItem from '../Comp/ScheduleItem';
 import Sidebar from '../Comp/Sidebar';
 import Logo from '../Comp/Logo';
 import Footer from '../Comp/Footer';
+
 const AdminExtraDetails = () => {
   const [prizes, setPrizes] = useState({
     first: 15000,
@@ -107,7 +108,7 @@ const AdminExtraDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 flex items-center justify-center">
+      <div className="min-h-screen min-w-screen  bg-gradient-to-b from-white via-green-50 to-emerald-50 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
@@ -167,7 +168,7 @@ const AdminExtraDetails = () => {
           </div>
           <button
             onClick={updatePrize}
-            className="mt-4 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+            className="mt-4 px-4 py-2 !bg-green-500 text-white rounded-md hover:bg-green-600 transition"
           >
             Update Prizes
           </button>
@@ -185,13 +186,13 @@ const AdminExtraDetails = () => {
               onClick={addScheduleItem}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200"
+              className="flex items-center gap-2 px-4 py-2 !bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300"
             >
               <Plus size={16} />
               Add Item
             </motion.button>
           </div>
-          <div className="space-y-4">
+          <div className="!bg-white space-y-4">
             {schedule.map((item) => (
               <ScheduleItem
                 key={item.id}
@@ -205,7 +206,7 @@ const AdminExtraDetails = () => {
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="bg-white rounded-xl p-8 text-center border border-gray-200"
+                className="!bg-white rounded-xl p-8 text-center border border-gray-200"
               >
                 <p className="text-gray-500">No schedule items yet. Add one to get started!</p>
               </motion.div>

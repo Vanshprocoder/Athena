@@ -49,7 +49,7 @@ const Sidebar = () => {
                 id="menu-button"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`m-4 fixed top-4 right-4 z-50 p-2 rounded-lg bg-white shadow-lg border border-gray-200 hover:border-emerald-500 transition-all duration-300 ${
+                className={`m-4 fixed top-4 right-4 z-50 p-2 rounded-lg !bg-white shadow-lg border border-gray-200 hover:border-emerald-500 transition-all duration-300 ${
                     isOpen ? 'hidden' : 'block'
                 }`}
                 onClick={() => setIsOpen(true)}
@@ -65,7 +65,7 @@ const Sidebar = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black/20 backdrop-blur-sm md:hidden"
+                        className="fixed inset-0 !bg-white backdrop-blur-sm md:hidden"
                         onClick={() => setIsOpen(false)}
                     />
                 )}
@@ -74,16 +74,16 @@ const Sidebar = () => {
             {/* Sidebar */}
             <motion.div 
                 id="sidebar"
-                className={`fixed top-0 right-0 h-full bg-white shadow-2xl text-gray-800 w-64 z-40
+                className={`fixed top-0 right-0 h-full !bg-white shadow-2xl text-gray-800 w-64 z-40
                     transform transition-transform duration-300 ease-in-out
                     ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
             >
-                <div className="flex justify-start p-4 border-b border-gray-200">
+                <div className="flex justify-start p-4 border-b border-white-200">
                     <motion.button 
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setIsOpen(false)}
-                        className="p-2 rounded-lg hover:bg-emerald-50 transition-colors"
+                        className="p-2 rounded-lg bg-white hover:bg-gray-200 transition-colors"
                         aria-label="Close menu"
                     >
                         <X size={30} className="text-emerald-600" />

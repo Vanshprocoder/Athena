@@ -245,7 +245,7 @@ const UserDashboard = () => {
           {/* Left side - Image */}
           <div className="w-full md:w-1/2">
             <img 
-              src="/src/assets/hero-illustration.svg" 
+              src="/hero-illustration.svg" 
               alt="Athena Competition Illustration" 
               className="w-full h-auto max-w-[600px] mx-auto"
             />

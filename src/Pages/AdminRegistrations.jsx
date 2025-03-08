@@ -9,7 +9,9 @@ import {
   Building,
   Calendar,
   X,
-  Sparkles
+  Sparkles,
+  Pencil,
+  Trash2
 } from "lucide-react";
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -173,7 +175,7 @@ const AdminRegistrations = () => {
   };
 
   return (
-    <div className="min-h-screen min-w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-hidden">
+    <div className={`min-h-screen min-w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-hidden ${loading ? 'w-full' : ''}`}>
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.05),rgba(255,255,255,0))]" />
@@ -221,7 +223,7 @@ const AdminRegistrations = () => {
                 onClick={() => setShowFilters(!showFilters)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="p-2 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all duration-300 relative"
+                className="p-2 bg-white rounded-xl hover:bg-gray-100 transition-all duration-300 relative"
               >
                 <Filter className="h-5 w-5 text-gray-600" />
                 {(filters.college || filters.event) && (
@@ -234,7 +236,7 @@ const AdminRegistrations = () => {
                 onClick={clearFilters}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors bg-white"
               >
                 Clear Filters
               </motion.button>
@@ -242,7 +244,7 @@ const AdminRegistrations = () => {
                 onClick={downloadRegistrations}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200"
+                className="flex items-center gap-2 px-4 py-2 !bg-green-500 text-white rounded-xl hover:bg-green-600 transition-all duration-300"
               >
                 <Download className="h-4 w-4" />
                 Export Excel
