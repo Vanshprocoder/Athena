@@ -50,6 +50,33 @@ body a{
   }
 }
 
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.2rem !important;
+    margin-top: 20px !important;
+  }
+  p {
+    font-size: 0.5rem !important;
+  }
+  img{
+    height: 3em !important;
+  }
+
+  #menu-button{
+    height: 2.5em !important;
+    width: 2.5em !important;
+    margin-top: 10px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  #menu-button svg{
+    height: 2.5em !important;
+    width: 2.5em !important;
+    margin-top: -20px !important;
+
+  }
+} 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
