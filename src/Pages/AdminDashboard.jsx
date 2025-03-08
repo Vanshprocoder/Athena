@@ -336,7 +336,7 @@ const RegistrationsModal = ({ isOpen, onClose, event }) => {
         {/* Content */}
         <div className="p-6 overflow-y-auto max-h-[calc(80vh-140px)]">
           {loading ? (
-            <div className="flex items-center justify-center py-12">
+            <div className="min-w-screen flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-2 border-emerald-500 border-t-transparent"></div>
             </div>
           ) : registrations.length > 0 ? (
@@ -597,354 +597,350 @@ const AdminDashboard = () => {
   };
 
   return (
-    
-    <div className=" min-h-screen min-w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 p-0">
-    <div className=" min-h-screen min-w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 p-6">
-     
-      <Sidebar />
-      <div className="absolute top-4 left-4">
-        <Logo />
-      </div>
-      {/* Header */}
-      <div className="mb-8">
-        <motion.h1 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-gray-800"
-        >
-          Admin Dashboard
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-gray-600 mt-2"
-        >
-          Manage your events and registrations
-        </motion.p>
-      </div>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
-        {/* Total Registrations */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          whileHover={{ y: -5, transition: { duration: 0.2 } }}
-          className="bg-white rounded-xl border border-gray-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Total Registrations</p>
-              <h3 className="text-2xl font-bold text-gray-800 mt-2">
-                {events.reduce((sum, event) => sum + (event.totalRegistrations || 0), 0)}
-              </h3>
-            </div>
-            <div className="bg-green-50 p-3 rounded-full">
-              <Users className="h-6 w-6 text-green-600" />
-            </div>
+    <div className="h-screen w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-x-hidden">
+      <div className="flex flex-col min-h-screen">
+        <div className="flex-grow">
+          <Sidebar />
+          <div className="absolute top-4 left-4">
+            <Logo />
           </div>
-        </motion.div>
-
-        {/* Registration Status Card */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileHover={{ y: -5, transition: { duration: 0.2 } }}
-          className="bg-white rounded-xl border border-gray-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Registration Status</p>
-              <div className="flex items-center gap-2 mt-2">
-                {events.length > 0 && events[0].registrationDeadline ? (
-                  <>
-                    <h3 className={`text-2xl font-bold ${new Date(events[0].registrationDeadline) > new Date() ? 'text-emerald-600' : 'text-red-600'}`}>
-                      {new Date(events[0].registrationDeadline) > new Date() ? 'ACTIVE' : 'CLOSED'}
-                    </h3>
-                    <button
-                      onClick={() => setShowDeadlineModal(true)}
-                      className="p-2 bg-white hover:bg-gray-200 rounded-full transition-colors"
-                    >
-                      <Pencil className="h-5 w-5 text-gray-600" />
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    onClick={() => setShowDeadlineModal(true)}
-                    className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-colors text-sm font-medium"
-                  >
-                    Set Deadline
-                  </button>
-                )}
-              </div>
-              {events.length > 0 && events[0].registrationDeadline && (
-                <div className="mt-2 text-sm text-gray-500">
-                  Deadline: {new Date(events[0].registrationDeadline).toLocaleString()}
-                </div>
-              )}
-            </div>
-            <div className={`bg-emerald-50 p-3 rounded-full ${
-              events.length > 0 && events[0].registrationDeadline && new Date(events[0].registrationDeadline) > new Date()
-                ? 'bg-emerald-50'
-                : 'bg-red-50'
-            }`}>
-              <Activity className={`h-6 w-6 ${
-                events.length > 0 && events[0].registrationDeadline && new Date(events[0].registrationDeadline) > new Date()
-                  ? 'text-emerald-600'
-                  : 'text-red-600'
-              }`} />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Total Events */}
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          whileHover={{ y: -5, transition: { duration: 0.2 } }}
-          className="bg-white rounded-xl border border-gray-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Total Events</p>
-              <h3 className="text-2xl font-bold text-gray-800 mt-2">{events.length}</h3>
-            </div>
-            <div className="bg-green-50 p-3 rounded-full">
-              <Calendar className="h-6 w-6 text-green-600" />
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Events Table */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden"
-      >
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-800 flex items-center">
-            <Calendar className="h-5 w-5 mr-2 text-green-600" />
-            Events List
-          </h2>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-full">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">ID</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">Event Name</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">Image</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">Total Registrations</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">View List</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {events.map((event) => (
-                <motion.tr 
-                  key={event.id} 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  whileHover={{ backgroundColor: 'rgba(249, 250, 251, 0.5)' }}
-                  className="transition-colors"
-                >
-                  <td className="px-6 py-4 text-sm text-gray-600">{event.id}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{event.eventName}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
-                    {event.imageUrl ? (
-                      <div className="relative group">
-                        <img 
-                          src={event.imageUrl} 
-                          alt={event.eventName}
-                          className="w-12 h-12 object-cover rounded-lg cursor-pointer"
-                        />
-                        <label className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg cursor-pointer">
-                          <Upload className="h-5 w-5 text-white" />
-                          <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={(e) => handleImageUpload(e, event.id)}
-                            disabled={uploading}
-                          />
-                        </label>
-                      </div>
-                    ) : (
-                      <label className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition-colors">
-                        <Image className="h-5 w-5 text-gray-400" />
-                        <input
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => handleImageUpload(e, event.id)}
-                          disabled={uploading}
-                        />
-                      </label>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{event.totalRegistrations || 0}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
-                    <button
-                      onClick={() => handleViewRegistrations(event)}
-                      className="p-2 bg-white hover:bg-gray-200 rounded-full transition-colors"
-                    >
-                      <ClipboardList className="h-5 w-5 text-gray-600" />
-                    </button>
-                  </td>
-                </motion.tr>
-              ))}
-            </tbody>
-          </table>
-
-        </div>
-      </motion.div>
-
-      
-
-      {/* Custom Modal */}
-      <Modal 
-        isOpen={!!selectedEvent} 
-        onClose={() => setSelectedEvent(null)}
-      >
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-purple-400" />
-              {selectedEvent?.eventName} - Registrations
-            </h2>
-            <button 
-              onClick={() => setSelectedEvent(null)}
-              className="p-2 hover:bg-gray-700 rounded-full transition-colors"
+          {/* Header */}
+          <div className="mb-8">
+            <motion.h1 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-3xl font-bold text-gray-800"
             >
-              <X className="h-5 w-5 text-gray-400" />
-            </button>
+              Admin Dashboard
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-gray-600 mt-2"
+            >
+              Manage your events and registrations
+            </motion.p>
           </div>
-          
-          <div className="mt-4">
-            {selectedEvent?.registrations?.length > 0 ? (
-              <table className="w-full">
+
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+            {/* Total Registrations */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="bg-white rounded-xl border border-gray-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Total Registrations</p>
+                  <h3 className="text-2xl font-bold text-gray-800 mt-2">
+                    {events.reduce((sum, event) => sum + (event.totalRegistrations || 0), 0)}
+                  </h3>
+                </div>
+                <div className="bg-green-50 p-3 rounded-full">
+                  <Users className="h-6 w-6 text-green-600" />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Registration Status Card */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="bg-white rounded-xl border border-gray-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Registration Status</p>
+                  <div className="flex items-center gap-2 mt-2">
+                    {events.length > 0 && events[0].registrationDeadline ? (
+                      <>
+                        <h3 className={`text-2xl font-bold ${new Date(events[0].registrationDeadline) > new Date() ? 'text-emerald-600' : 'text-red-600'}`}>
+                          {new Date(events[0].registrationDeadline) > new Date() ? 'ACTIVE' : 'CLOSED'}
+                        </h3>
+                        <button
+                          onClick={() => setShowDeadlineModal(true)}
+                          className="p-2 bg-white hover:bg-gray-200 rounded-full transition-colors"
+                        >
+                          <Pencil className="h-5 w-5 text-gray-600" />
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => setShowDeadlineModal(true)}
+                        className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-colors text-sm font-medium"
+                      >
+                        Set Deadline
+                      </button>
+                    )}
+                  </div>
+                  {events.length > 0 && events[0].registrationDeadline && (
+                    <div className="mt-2 text-sm text-gray-500">
+                      Deadline: {new Date(events[0].registrationDeadline).toLocaleString()}
+                    </div>
+                  )}
+                </div>
+                <div className={`bg-emerald-50 p-3 rounded-full ${
+                  events.length > 0 && events[0].registrationDeadline && new Date(events[0].registrationDeadline) > new Date()
+                    ? 'bg-emerald-50'
+                    : 'bg-red-50'
+                }`}>
+                  <Activity className={`h-6 w-6 ${
+                    events.length > 0 && events[0].registrationDeadline && new Date(events[0].registrationDeadline) > new Date()
+                      ? 'text-emerald-600'
+                      : 'text-red-600'
+                  }`} />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Total Events */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="bg-white rounded-xl border border-gray-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Total Events</p>
+                  <h3 className="text-2xl font-bold text-gray-800 mt-2">{events.length}</h3>
+                </div>
+                <div className="bg-green-50 p-3 rounded-full">
+                  <Calendar className="h-6 w-6 text-green-600" />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Events Table */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden"
+          >
+            <div className="p-6 border-b border-gray-200">
+              <h2 className="text-xl font-bold text-gray-800 flex items-center">
+                <Calendar className="h-5 w-5 mr-2 text-green-600" />
+                Events List
+              </h2>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-full">
                 <thead>
-                  <tr className="border-b border-gray-700">
-                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-300">
-                      <div className="flex items-center gap-2">
-                        <User className="h-4 w-4 text-purple-400" />
-                        Name
-                      </div>
-                    </th>
-                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-300">
-                      <div className="flex items-center gap-2">
-                        <Building className="h-4 w-4 text-purple-400" />
-                        College
-                      </div>
-                    </th>
-                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-300">
-                      <div className="flex items-center gap-2">
-                        <Mail className="h-4 w-4 text-purple-400" />
-                        Email
-                      </div>
-                    </th>
+                  <tr className="bg-gray-50">
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">ID</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">Event Name</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">Image</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">Total Registrations</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-600">View List</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {selectedEvent?.registrations.map((registration) => (
-                    <tr key={registration.id} className="border-b border-gray-700">
-                      <td className="px-4 py-2 text-sm text-gray-300">{registration.name}</td>
-                      <td className="px-4 py-2 text-sm text-gray-300">{registration.college}</td>
-                      <td className="px-4 py-2 text-sm text-gray-300">{registration.email}</td>
-                    </tr>
+                <tbody className="divide-y divide-gray-200">
+                  {events.map((event) => (
+                    <motion.tr 
+                      key={event.id} 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      whileHover={{ backgroundColor: 'rgba(249, 250, 251, 0.5)' }}
+                      className="transition-colors"
+                    >
+                      <td className="px-6 py-4 text-sm text-gray-600">{event.id}</td>
+                      <td className="px-6 py-4 text-sm text-gray-800">{event.eventName}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {event.imageUrl ? (
+                          <div className="relative group">
+                            <img 
+                              src={event.imageUrl} 
+                              alt={event.eventName}
+                              className="w-12 h-12 object-cover rounded-lg cursor-pointer"
+                            />
+                            <label className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg cursor-pointer">
+                              <Upload className="h-5 w-5 text-white" />
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => handleImageUpload(e, event.id)}
+                                disabled={uploading}
+                              />
+                            </label>
+                          </div>
+                        ) : (
+                          <label className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition-colors">
+                            <Image className="h-5 w-5 text-gray-400" />
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => handleImageUpload(e, event.id)}
+                              disabled={uploading}
+                            />
+                          </label>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-600">{event.totalRegistrations || 0}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        <button
+                          onClick={() => handleViewRegistrations(event)}
+                          className="p-2 bg-white hover:bg-gray-200 rounded-full transition-colors"
+                        >
+                          <ClipboardList className="h-5 w-5 text-gray-600" />
+                        </button>
+                      </td>
+                    </motion.tr>
                   ))}
                 </tbody>
               </table>
-            ) : (
-              <p className="text-sm text-gray-300">No registrations yet.</p>
-            )}
-          </div>
-        </div>
-      </Modal>
 
-      {/* Add the Registrations Modal */}
-      <RegistrationsModal
-        isOpen={showRegistrationsModal}
-        onClose={() => setShowRegistrationsModal(false)}
-        event={selectedEventForRegistrations}
-      />
-
-      {/* Deadline Modal */}
-      <AnimatePresence>
-        {showDeadlineModal && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
-          >
-            <motion.div 
-              className="absolute inset-0 bg-black/20"
-              onClick={() => setShowDeadlineModal(false)}
-            />
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative z-10 w-full max-w-md bg-white rounded-xl shadow-2xl border border-gray-200 p-6"
-            >
-              <h2 className="text-xl font-bold text-gray-800 mb-6">Set Registration Deadline</h2>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Date</label>
-                  <input
-                    type="date"
-                    value={selectedDate}
-                    min={new Date().toISOString().split('T')[0]}
-                    onChange={(e) => {
-                      setSelectedDate(e.target.value);
-                      if (e.target.value === new Date().toISOString().split('T')[0]) {
-                        const now = new Date();
-                        const minTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-                        if (selectedTime < minTime) {
-                          setSelectedTime(minTime);
-                        }
-                      }
-                    }}
-                    className="w-full p-3 bg-white text-gray-800 rounded-lg border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Time</label>
-                  <input
-                    type="time"
-                    value={selectedTime}
-                    min={selectedDate === new Date().toISOString().split('T')[0] ? 
-                      `${String(new Date().getHours()).padStart(2, '0')}:${String(new Date().getMinutes()).padStart(2, '0')}` : 
-                      undefined}
-                    onChange={(e) => setSelectedTime(e.target.value)}
-                    className="w-full p-3 bg-white text-gray-800 rounded-lg border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-colors"
-                  />
-                </div>
-              </div>
-              <div className="flex justify-end gap-4 mt-6">
-                <button
-                  onClick={() => setShowDeadlineModal(false)}
-                  className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSetDeadline}
-                  className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-colors"
-                >
-                  Set Deadline
-                </button>
-              </div>
-            </motion.div>
+            </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-     
-    
-    </div>
-    <Footer className="m-0 p-0 min-w-screen" />
+
+          {/* Custom Modal */}
+          <Modal 
+            isOpen={!!selectedEvent} 
+            onClose={() => setSelectedEvent(null)}
+          >
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-purple-400" />
+                  {selectedEvent?.eventName} - Registrations
+                </h2>
+                <button 
+                  onClick={() => setSelectedEvent(null)}
+                  className="p-2 hover:bg-gray-700 rounded-full transition-colors"
+                >
+                  <X className="h-5 w-5 text-gray-400" />
+                </button>
+              </div>
+              
+              <div className="mt-4">
+                {selectedEvent?.registrations?.length > 0 ? (
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-gray-700">
+                        <th className="px-4 py-2 text-left text-sm font-medium text-gray-300">
+                          <div className="flex items-center gap-2">
+                            <User className="h-4 w-4 text-purple-400" />
+                            Name
+                          </div>
+                        </th>
+                        <th className="px-4 py-2 text-left text-sm font-medium text-gray-300">
+                          <div className="flex items-center gap-2">
+                            <Building className="h-4 w-4 text-purple-400" />
+                            College
+                          </div>
+                        </th>
+                        <th className="px-4 py-2 text-left text-sm font-medium text-gray-300">
+                          <div className="flex items-center gap-2">
+                            <Mail className="h-4 w-4 text-purple-400" />
+                            Email
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {selectedEvent?.registrations.map((registration) => (
+                        <tr key={registration.id} className="border-b border-gray-700">
+                          <td className="px-4 py-2 text-sm text-gray-300">{registration.name}</td>
+                          <td className="px-4 py-2 text-sm text-gray-300">{registration.college}</td>
+                          <td className="px-4 py-2 text-sm text-gray-300">{registration.email}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p className="text-sm text-gray-300">No registrations yet.</p>
+                )}
+              </div>
+            </div>
+          </Modal>
+
+          {/* Add the Registrations Modal */}
+          <RegistrationsModal
+            isOpen={showRegistrationsModal}
+            onClose={() => setShowRegistrationsModal(false)}
+            event={selectedEventForRegistrations}
+          />
+
+          {/* Deadline Modal */}
+          <AnimatePresence>
+            {showDeadlineModal && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+              >
+                <motion.div 
+                  className="absolute inset-0 bg-black/20"
+                  onClick={() => setShowDeadlineModal(false)}
+                />
+                <motion.div 
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  className="relative z-10 w-full max-w-md bg-white rounded-xl shadow-2xl border border-gray-200 p-6"
+                >
+                  <h2 className="text-xl font-bold text-gray-800 mb-6">Set Registration Deadline</h2>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">Date</label>
+                      <input
+                        type="date"
+                        value={selectedDate}
+                        min={new Date().toISOString().split('T')[0]}
+                        onChange={(e) => {
+                          setSelectedDate(e.target.value);
+                          if (e.target.value === new Date().toISOString().split('T')[0]) {
+                            const now = new Date();
+                            const minTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+                            if (selectedTime < minTime) {
+                              setSelectedTime(minTime);
+                            }
+                          }
+                        }}
+                        className="w-full p-3 bg-white text-gray-800 rounded-lg border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">Time</label>
+                      <input
+                        type="time"
+                        value={selectedTime}
+                        min={selectedDate === new Date().toISOString().split('T')[0] ? 
+                          `${String(new Date().getHours()).padStart(2, '0')}:${String(new Date().getMinutes()).padStart(2, '0')}` : 
+                          undefined}
+                        onChange={(e) => setSelectedTime(e.target.value)}
+                        className="w-full p-3 bg-white text-gray-800 rounded-lg border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-end gap-4 mt-6">
+                    <button
+                      onClick={() => setShowDeadlineModal(false)}
+                      className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSetDeadline}
+                      className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-colors"
+                    >
+                      Set Deadline
+                    </button>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+        <Footer className="m-0 p-0 w-full" />
+      </div>
     </div>
   );
 };

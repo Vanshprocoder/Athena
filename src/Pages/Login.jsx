@@ -59,7 +59,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen flex items-center justify-center bg-gradient-to-b from-white via-green-50 to-emerald-50 relative">
+    <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-b from-white via-green-50 to-emerald-50 relative">
       <div className="absolute top-4 left-4">
         <Logo />
       </div>

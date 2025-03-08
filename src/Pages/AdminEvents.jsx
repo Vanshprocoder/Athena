@@ -364,7 +364,7 @@ const AdminEvents = () => {
     };
 
     return (
-      <div className="min-h-screen min-w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-hidden">
+      <div className="h-screen w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-x-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.05),rgba(255,255,255,0))]" />

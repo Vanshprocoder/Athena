@@ -4,7 +4,7 @@ import Footer from '../Comp/Footer';
 
 const Rules = () => {
   return (
-    <div className="min-h-screen min-w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50">
+    <div className="h-screen w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-x-hidden">
       <Nav />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">General Rules</h1>
