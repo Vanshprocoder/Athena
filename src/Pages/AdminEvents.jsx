@@ -364,7 +364,7 @@ const AdminEvents = () => {
     };
 
     return (
-      <div className="h-screen w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-x-hidden">
+      <div className="min-h-screen min-w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-x-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.05),rgba(255,255,255,0))]" />
@@ -389,12 +389,7 @@ const AdminEvents = () => {
                 Event Management
                 <Sparkles className="h-5 w-5 text-green-600" />
               </h1>
-              <button
-                className="md:hidden p-2 text-gray-600 hover:text-gray-800 absolute right-0 top-0"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                <Menu className="h-6 w-6" />
-              </button>
+            
             </div>
             <p className="text-gray-600 text-sm md:text-base">Create and manage your events</p>
           </motion.div>
