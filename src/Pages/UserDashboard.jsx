@@ -8,6 +8,7 @@ import EventCard from '../Comp/EventCard';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '../Comp/Footer';
+import { format } from 'date-fns';
 
 const PrizeCard = ({ title, amount, trophyColor }) => (
   <motion.div 
@@ -194,6 +195,18 @@ const UserDashboard = () => {
     );
   };
 
+  const groupedSchedule = schedule.reduce((acc, item) => {
+    const date = item.date || 'No Date';
+    if (!acc[date]) {
+      acc[date] = [];
+    }
+    acc[date].push(item);
+    return acc;
+  }, {});
+
+  // Sort the grouped schedule by date
+  const sortedDates = Object.keys(groupedSchedule).sort((a, b) => new Date(a) - new Date(b));
+
   // Loading state
   if (loading) {
     return (
@@ -296,30 +309,35 @@ const UserDashboard = () => {
       <Section title="Event Schedule">
         <div className="relative max-w-4xl mx-auto px-4">
           {/* Vertical line */}
-          <div className="absolute left-1/2 transform -translate-x-px border-l-2 border-green-500 h-full z-0"></div>
+          <div className="absolute left-1/2 transform -translate-x-1/2 border-l-2 border-green-500 h-full z-0"></div>
           
           {/* Timeline items */}
           <div className="relative z-10">
-            {schedule.map((item, index) => (
-              <div 
-                key={item.id} 
-                className={`flex items-center mb-8 ${index % 2 === 0 ? '' : 'flex-row-reverse'}`}
-              >
-                {/* Left side (even index) or Right side (odd index) */}
-                <div className={`w-1/2 flex ${index % 2 === 0 ? 'justify-end pr-8' : 'justify-start pl-8'}`}>
-                  <div className="bg-white rounded-xl shadow-lg p-4 border border-gray-200 w-full max-w-xs">
-                    <h3 className="text-lg font-semibold text-gray-800">{item.activity || "New Activity"}</h3>
-                    <p className="text-gray-500 text-sm">{item.date || ""}</p>
+            {sortedDates.map(date => (
+              <div key={date} className="mb-6">
+                <h2 className="text-xl font-bold text-gray-700 mb-2">{format(new Date(date), 'dd/MM/yyyy')}</h2>
+                {groupedSchedule[date].sort((a, b) => new Date(`1970-01-01T${a.time}:00`) - new Date(`1970-01-01T${b.time}:00`)).map((item, index) => (
+                  <div 
+                    key={item.id} 
+                    className={`flex items-center mb-8 ${index % 2 === 0 ? '' : 'flex-row-reverse'}`}
+                  >
+                    {/* Left side (even index) or Right side (odd index) */}
+                    <div className={`w-1/2 flex ${index % 2 === 0 ? 'justify-end pr-8' : 'justify-start pl-8'}`}>
+                      <div className="bg-white rounded-xl shadow-lg p-4 border border-gray-200 w-full max-w-xs">
+                        <h3 className="text-lg font-semibold text-gray-800">{item.activity || "New Activity"}</h3>
+                        <p className="text-gray-500 text-sm">{format(new Date(`1970-01-01T${item.time}:00`), 'hh:mm a') || ""}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Center dot */}
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-green-500 rounded-full border-4 border-white"></div>
+                    
+                    {/* Right side (even index) or Left side (odd index) */}
+                    <div className={`w-1/2 flex ${index % 2 === 0 ? 'justify-start pl-8' : 'justify-end pr-8'}`}>
+                      <div className="text-gray-600">{format(new Date(`1970-01-01T${item.time}:00`), 'hh:mm a') || (index % 2 === 0 ? "10:00 AM" : "09:00 AM")}</div>
+                    </div>
                   </div>
-                </div>
-                
-                {/* Center dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-green-500 rounded-full border-4 border-white"></div>
-                
-                {/* Right side (even index) or Left side (odd index) */}
-                <div className={`w-1/2 flex ${index % 2 === 0 ? 'justify-start pl-8' : 'justify-end pr-8'}`}>
-                  <div className="text-gray-600">{item.time || (index % 2 === 0 ? "10:00" : "09:00")}</div>
-                </div>
+                ))}
               </div>
             ))}
           </div>
