@@ -9,6 +9,7 @@ import ScheduleItem from '../Comp/ScheduleItem';
 import Sidebar from '../Comp/Sidebar';
 import Logo from '../Comp/Logo';
 import Footer from '../Comp/Footer';
+import { format } from 'date-fns';
 
 const AdminExtraDetails = () => {
   const [prizes, setPrizes] = useState({
@@ -18,6 +19,7 @@ const AdminExtraDetails = () => {
   });
   const [schedule, setSchedule] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [newScheduleItem, setNewScheduleItem] = useState({ time: '09:00', activity: 'New Activity', date: '' });
 
   useEffect(() => {
     fetchDetails();
@@ -66,14 +68,11 @@ const AdminExtraDetails = () => {
   };
 
   const addScheduleItem = async () => {
-    const newItem = {
-      time: '09:00',
-      activity: 'New Activity'
-    };
     try {
-      const docRef = await addDoc(collection(db, 'schedule'), newItem);
-      setSchedule([...schedule, { id: docRef.id, ...newItem }]);
+      const docRef = await addDoc(collection(db, 'schedule'), newScheduleItem);
+      setSchedule([...schedule, { id: docRef.id, ...newScheduleItem }]);
       toast.success('Schedule item added');
+      setNewScheduleItem({ time: '09:00', activity: 'New Activity', date: '' });
     } catch (error) {
       console.error('Error adding schedule item:', error);
       toast.error('Failed to add schedule item');
@@ -106,6 +105,15 @@ const AdminExtraDetails = () => {
     }
   };
 
+  const groupedSchedule = schedule.reduce((acc, item) => {
+    const date = item.date || 'No Date';
+    if (!acc[date]) {
+      acc[date] = [];
+    }
+    acc[date].push(item);
+    return acc;
+  }, {});
+
   if (loading) {
     return (
       <div className="min-h-screen min-w-screen  bg-gradient-to-b from-white via-green-50 to-emerald-50 flex items-center justify-center">
@@ -115,7 +123,7 @@ const AdminExtraDetails = () => {
   }
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-x-hidden">
+    <div className="min-h-screen min-w-screen bg-gradient-to-b from-white via-green-50 to-emerald-50 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.05),rgba(255,255,255,0))]" />
@@ -174,44 +182,57 @@ const AdminExtraDetails = () => {
           </button>
         </motion.section>
 
+        {/* Add Schedule Item Form */}
+        <div className="mb-6">
+          <input
+            type="date"
+            value={newScheduleItem.date}
+            onChange={(e) => setNewScheduleItem({ ...newScheduleItem, date: e.target.value })}
+            className="text-black border border-gray-300 rounded-md p-2 mr-2"
+          />
+          <input
+            type="time"
+            value={newScheduleItem.time}
+            onChange={(e) => setNewScheduleItem({ ...newScheduleItem, time: e.target.value })}
+            className="text-black border border-gray-300 rounded-md p-2 mr-2"
+          />
+          <input
+            type="text"
+            value={newScheduleItem.activity}
+            onChange={(e) => setNewScheduleItem({ ...newScheduleItem, activity: e.target.value })}
+            placeholder="Activity"
+            className="text-black border border-gray-300 rounded-md p-2 mr-2"
+          />
+          <button
+            onClick={addScheduleItem}
+            className="text-black px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+          >
+            Add Schedule Item
+          </button>
+        </div>
+
         {/* Schedule Section */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-700">Event Schedule</h2>
-            <motion.button
-              onClick={addScheduleItem}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-2 px-4 py-2 !bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300"
-            >
-              <Plus size={16} />
-              Add Item
-            </motion.button>
-          </div>
-          <div className="!bg-white space-y-4">
-            {schedule.map((item) => (
-              <ScheduleItem
-                key={item.id}
-                time={item.time}
-                activity={item.activity}
-                onUpdate={(time, activity) => updateScheduleItem(item.id, time, activity)}
-                onDelete={() => deleteScheduleItem(item.id)}
-              />
-            ))}
-            {schedule.length === 0 && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="!bg-white rounded-xl p-8 text-center border border-gray-200"
-              >
-                <p className="text-gray-500">No schedule items yet. Add one to get started!</p>
-              </motion.div>
-            )}
-          </div>
+          {Object.keys(groupedSchedule).map(date => (
+            <div key={date} className="mb-6">
+              <h2 className="text-xl font-bold text-gray-700 mb-2">{format(new Date(date), 'dd/MM/yyyy')}</h2>
+              <div className="!bg-white space-y-4">
+                {groupedSchedule[date].sort((a, b) => new Date(`1970-01-01T${a.time}:00`) - new Date(`1970-01-01T${b.time}:00`)).map(item => (
+                  <ScheduleItem
+                    key={item.id}
+                    time={format(new Date(`1970-01-01T${item.time}:00`), 'hh:mm a')}
+                    activity={item.activity}
+                    onUpdate={(time, activity) => updateScheduleItem(item.id, time, activity)}
+                    onDelete={() => deleteScheduleItem(item.id)}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
         </motion.section>
       </div>
       <Footer/>
